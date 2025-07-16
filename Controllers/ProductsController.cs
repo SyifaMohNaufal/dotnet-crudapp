@@ -22,7 +22,7 @@ namespace CrudApp.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Products.ToListAsync());
+            return View(await _context.Products!.ToListAsync());
         }
 
         // GET: Products/Details/5
@@ -33,7 +33,7 @@ namespace CrudApp.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products
+            var product = await _context.Products!
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
@@ -73,7 +73,7 @@ namespace CrudApp.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Products!.FindAsync(id);
             if (product == null)
             {
                 return NotFound();
@@ -124,7 +124,7 @@ namespace CrudApp.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products
+            var product = await _context.Products!
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
@@ -139,7 +139,7 @@ namespace CrudApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Products!.FindAsync(id);
             if (product != null)
             {
                 _context.Products.Remove(product);
@@ -151,7 +151,7 @@ namespace CrudApp.Controllers
 
         private bool ProductExists(int id)
         {
-            return _context.Products.Any(e => e.Id == id);
+            return _context.Products!.Any(e => e.Id == id);
         }
     }
 }
